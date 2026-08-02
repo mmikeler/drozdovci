@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+/playwright*
+/test-results/
+/e2e
 
 # next.js
 /.next/
@@ -31,7 +34,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
+.env.local*
 
 # vercel
 .vercel
@@ -40,5 +43,23 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# logs
+/logs
+
+# database
+db/dev.db
+db/*.db
+
+# plans
+/plans
+
+# skills
+skills-lock.json
+
 # agents
+.agents
+.kilo
 .gigacode
+
+# images
+/public/uploads/*
