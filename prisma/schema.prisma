@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum UserRole {
+  SUPERADMIN
+  ADMIN
+  EDITOR
+}
+
+enum UserRank {
+  Sestra_miloserdiya
+  Chinovnik
+  Chinovnik_voennogo_vedomstva
+  Nizhniy_chin
+  Ofitser
+  Ryadovoy
+  Efreytor
+  Mladshiy_unter_ofitser
+  Starshiy_unter_ofitser
+  Feldfebel
+  Podpraporshchik
+  Praporshchik
+  Podporuchik
+  Poruchik
+  Shtab_kapitan
+  Kapitan
+  Podpolkovnik
+  Polkovnik
+  General_mayor
+  General_leytenant
+  General_ot_infanterii
+  Kanonir
+  Bombardir
+  Mladshiy_feyerverker
+  Starshiy_feyerverker
+  Vakhmistr
+  General_ot_kavalerii
+  Kazak
+  Mladshiy_uryadnik
+  Starshiy_uryadnik
+  Khorunzhiy
+  Sotnik
+  Podesaul
+  Esaul
+  Voyskovoy_starshina
+  Matros
+  Kvartirmeyster
+  Botsman
+  Konduktor
+  Kapitan_2_ranga
+  Kapitan_1_ranga
+  Kontr_admiral
+  Vitse_admiral
+  Admiral
+  Michman
+  Leytenant
+  Starshiy_leytenant
+  Kollezhskiy_registrator
+  Provintsialnyy_sekretar
+  Gubernskiy_sekretar
+  Kollezhskiy_sekretar
+  Titulyarnyy_sovetnik
+  Kollezhskiy_asesor
+  Nadvornyy_sovetnik
+  Kollezhskiy_sovetnik
+  Taynyy_sovetnik
+  Deystvitelnyy_statskiy_sovetnik
+  Statskiy_sovetnik
+  Deystvitelnyy_taynyy_sovetnik
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  login    String   @unique
+  password String
+  role     UserRole @default(EDITOR)
+}
+
+model Participant {
+  id            Int          @id @default(autoincrement())
+  // FIO
+  name          String       @default("")
+  surname       String       @default("")
+  patronymic    String       @default("")
+  // Voennoe
+  rank          UserRank     @default(Ryadovoy)
+  division      String       @default("")
+  // Dates
+  born_at       String       @default("")
+  died_at       String       @default("")
+  // Drozdovski division
+  isDrozdovec   Boolean      @default(false)
+  // 198 division
+  is198         Boolean      @default(false)
+  // Was born
+  guberniya     String       @default("")
+  uezd          String       @default("")
+  volost        String       @default("")
+  locality      String       @default("")
+  // Photo
+  photos        String       @default("[]")
+  grave_photo   String       @default("[]")
+  // Another
+  rewards       String       @default("")
+  bio           String       @default("")
+  source        String       @default("")
+  placeOfDeath  String       @default("")
+  status        PostStatus   @default(DRAFT)
+  // Relations
+  burialPlaceId Int?
+  burialPlace   BurialPlace? @relation(fields: [burialPlaceId], references: [id])
+}
+
+model BurialPlace {
+  id           Int           @id @default(autoincrement())
+  title        String        @default("Новое захоронение")
+  country      String        @default("")
+  city         String        @default("")
+  description  String        @default("")
+  gallery      String        @default("")
+  status       PostStatus    @default(DRAFT)
+  // Relation
+  perticipants Participant[]
+}

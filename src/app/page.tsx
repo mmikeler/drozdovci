@@ -1,65 +1,75 @@
+// HOME PAGE
+
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <>
+      <h1 className="text-4xl rounded-lg font-bold p-5 border-4 text-center bg-rose-800 text-amber-300 border-white">
+        История Дроздовцев
+      </h1>
+      <div className="h-100 relative overflow-hidden">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+          fill
+          src="/hero.jpg"
+          alt="hero-image"
+          style={{ objectFit: "cover" }}
+          loading="eager"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+      <div className="w-250 text-[20px] mx-auto">
+        <p className="mt-10">
+          <strong>Дроздовцы</strong> — это воинские части Добровольческой армии,
+          а затем Вооружённых сил Юга России (ВСЮР) и Русской армии, которые
+          получили своё название в честь генерал-майора Михаила Гордеевича
+          Дроздовского, одного из ключевых организаторов Белого движения на Юге
+          России. Первоначально так называли бойцов Первой Отдельной бригады
+          Русских добровольцев, совершивших знаменитый поход Яссы — Дон (1200
+          вёрст) с 26 февраля по 24 апреля 1918 года под командованием
+          полковника, а затем генерала Дроздовского.
+        </p>
+        <p className="mt-10">
+          <b>Формирование и поход:</b> Начало формирования было положено 19
+          декабря 1917 года на Румынском фронте. Отряд Дроздовского, состоявший
+          в основном из офицеров, совершил тяжелейший переход через территорию,
+          охваченную революцией и гражданской войной, для соединения с
+          Добровольческой армией на Дону. Уже в июне 1918 года отряд вошёл в
+          состав армии как 3-я пехотная бригада (позже — дивизия)
+        </p>
+        <p className="mt-10">
+          <b>Боевая слава:</b> Дроздовцы считались одной из самых надёжных и
+          боеспособных частей Белого движения. Они отличались высокой
+          дисциплиной, организацией и боевым духом, часто направлялись на самые
+          сложные участки фронта. Их называли «цветными» частями из-за малиновых
+          фуражек с белым околышем и малиновых погон с белой опушкой и жёлтой
+          литерой «Д».
+        </p>
+        <p className="mt-10">
+          <b>Политические особенности:</b> Внутри дроздовских частей
+          существовала тайная монархическая организация, что иногда приводило к
+          трениям с другими частями Добровольческой армии, придерживавшимися
+          более либеральной позиции. Дроздовцы открыто заявляли о своих
+          монархических взглядах, но при этом поддерживали идею конституционной
+          монархии.
+        </p>
+        <p className="mt-10">
+          <b>Потери и реорганизация:</b> За время Гражданской войны дивизия
+          выдержала около 650 боёв, потеряв 15 000 человек убитыми и 35 000
+          ранеными. После эвакуации из Крыма в ноябре 1920 года остатки
+          дроздовцев были сведены в Сводно-стрелковый генерала Дроздовского полк
+          в Галлиполи. В эмиграции полк сохранял кадровую структуру до 1922
+          года, а затем его чины объединились в ветеранские организации во
+          Франции и Болгарии
+        </p>
+        <p className="mt-10">
+          <b>Культурное наследие</b>: Дроздовцы оставили заметный след в истории
+          Белого движения. Их отличали не только боевые качества, но и сильная
+          корпоративная сплочённость: они идеализировали своего командира, чтили
+          его память и сохраняли традиции полка на протяжении десятилетий
+          эмиграции. Известны песни дроздовских частей, например, «Марш
+          дроздовского полка» и «Смелей, дроздовцы удалые».
+        </p>
+      </div>
+    </>
   );
 }

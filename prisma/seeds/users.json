@@ -1,0 +1,14 @@
+[
+  {
+    "login": "superadmin",
+    "role": "SUPERADMIN"
+  },
+  {
+    "login": "admin",
+    "role": "ADMIN"
+  },
+  {
+    "login": "editor",
+    "role": "EDITOR"
+  }
+]
