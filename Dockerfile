@@ -1,10 +1,8 @@
-FROM node:22-slim AS base
+FROM node:20-alpine3.17 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libvips \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache libvips libc6-compat
 WORKDIR /app
 
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
@@ -19,7 +17,7 @@ RUN \
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
-RUN apt-get update && apt-get install -y --no-install-recommends libvips && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache libvips
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
@@ -39,14 +37,13 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-RUN apt-get update && apt-get install -y --no-install-recommends libvips && rm -rf /var/lib/apt/lists/*
-
-RUN addgroup --system --gid 1001 nodejs && \
+RUN apk add --no-cache libvips && \
+  addgroup --system --gid 1001 nodejs && \
   adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
 
-# Используем `.prisma` только как пустую папку (если нужен путь)
+# Используем `.prisma` только как пустую папка (если нужен путь)
 RUN mkdir -p .prisma
 RUN chown -R nextjs:nodejs .prisma
 
