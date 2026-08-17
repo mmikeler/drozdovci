@@ -2,6 +2,12 @@ FROM node:22-slim AS base
 
 # Install dependencies only when needed
 FROM base AS deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+    libvips-dev \
+    && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
@@ -11,6 +17,8 @@ RUN \
   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
   else echo "Lockfile not found." && exit 1; \
   fi
+
+RUN npm rebuild sharp --build-from-source
 
 
 # Rebuild the source code only when needed
@@ -34,6 +42,8 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+
+RUN apt-get update && apt-get install -y --no-install-recommends libvips && rm -rf /var/lib/apt/lists/*
 
 RUN addgroup --system --gid 1001 nodejs && \
   adduser --system --uid 1001 nextjs
