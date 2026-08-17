@@ -3,10 +3,7 @@ FROM node:22-slim AS base
 # Install dependencies only when needed
 FROM base AS deps
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3 \
-    make \
-    g++ \
-    libvips-dev \
+    libvips \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
@@ -18,12 +15,11 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-RUN npm rebuild sharp --build-from-source
-
 
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends libvips && rm -rf /var/lib/apt/lists/*
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
