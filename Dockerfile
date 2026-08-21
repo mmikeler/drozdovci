@@ -1,6 +1,5 @@
 FROM node:22-alpine3.21 AS deps
 
-RUN apk add --no-cache libvips
 WORKDIR /app
 
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
@@ -14,7 +13,6 @@ RUN \
 
 FROM node:22-alpine3.21 AS builder
 WORKDIR /app
-RUN apk add --no-cache libvips
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
