@@ -160,6 +160,7 @@ export default function Gallery({
             afterOpenChange: (visible) => !visible && setPreviewImage(""),
           }}
           src={previewImage}
+          className="border border-stone-50"
         />
       )}
     </div>
