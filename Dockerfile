@@ -52,7 +52,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 # sharp built on Alpine (musl) won't load on Debian (glibc)
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/package-lock.json ./package-lock.json
-RUN npm ci --omit=dev --ignore-scripts && npm rebuild sharp && rm -f package.json package-lock.json
+RUN npm ci --omit=dev --ignore-scripts && npm rebuild && rm -f package.json package-lock.json
 
 USER nextjs
 

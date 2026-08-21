@@ -25,7 +25,7 @@ async function main() {
     JSON.parse(users).map(async (user: User) => {
       return {
         login: user.login,
-        password: await hash(user.role.toLowerCase() + "123", 10),
+        password: await hash(user.login + "123", 10),
         role: user.role,
       };
     }),
