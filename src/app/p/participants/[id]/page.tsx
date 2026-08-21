@@ -3,9 +3,10 @@
 import { authOptions } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Participant } from "@/models/participant";
-import { Row, Col, Empty, Descriptions, Image, Divider, Alert } from "antd";
+import { Row, Col, Empty, Descriptions, Divider, Alert } from "antd";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
+import OptimizedImage from "@/components/OptimizedImage";
 
 export default async function Page({
   params,
@@ -71,45 +72,51 @@ export default async function Page({
           <div className="flex flex-col gap-4">
             {P.gallery.length > 0 ? (
               P.gallery.map((photo) => (
-                <Image
-                  key={photo}
-                  styles={{
-                    image: { objectFit: "cover", height: "100%" },
-                    root: { height: "100%", border: "1px solid #ddd" },
-                  }}
-                  src={photo}
-                  alt={P.fullName}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
+                <div key={photo} className="aspect-[3/4] w-full">
+                  <OptimizedImage
+                    src={photo}
+                    alt={P.fullName}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    width="100%"
+                    height="100%"
+                    styles={{
+                      image: { objectFit: "cover" },
+                      root: { border: "1px solid #ddd" },
+                    }}
+                  />
+                </div>
               ))
             ) : (
-              <Image
-                preview={false}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                styles={{
-                  image: { objectFit: "cover", height: "100%" },
-                  root: { height: "100%" },
-                }}
-                loading="eager"
-                src="/mock2.jpg"
-                alt={P.fullName}
-              />
+              <div className="aspect-[3/4] w-full">
+                <OptimizedImage
+                  preview={false}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  loading="eager"
+                  src="/mock2.jpg"
+                  alt={P.fullName}
+                  width="100%"
+                  height="100%"
+                />
+              </div>
             )}
           </div>
           <Divider>Захоронение</Divider>
           <div className="flex flex-col gap-4">
             {P.graveGallery.length > 0
               ? P.graveGallery.map((photo, index) => (
-                  <Image
-                    key={index}
-                    styles={{
-                      image: { objectFit: "cover", height: "100%" },
-                      root: { height: "100%", border: "1px solid #ddd" },
-                    }}
-                    src={photo}
-                    alt={P.fullName}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
+                  <div key={index} className="aspect-[3/4] w-full">
+                    <OptimizedImage
+                      src={photo}
+                      alt={P.fullName}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      width="100%"
+                      height="100%"
+                      styles={{
+                        image: { objectFit: "cover" },
+                        root: { border: "1px solid #ddd" },
+                      }}
+                    />
+                  </div>
                 ))
               : "Нет фото"}
           </div>

@@ -37,6 +37,9 @@ export default async function ParticipantPage({
   }
 
   const avatarSrc = JSON.parse(P.photos)?.[0];
+  const avatarSm = avatarSrc?.endsWith(".webp") && avatarSrc.startsWith("/uploads/")
+    ? avatarSrc.replace(/\.webp$/, "_sm.webp")
+    : avatarSrc;
 
   return (
     <div className="max-w-260 mx-auto">
@@ -46,7 +49,7 @@ export default async function ParticipantPage({
         </Space>
       </Link>
       <Title level={2} className="flex items-center gap-3">
-        <Avatar shape="square" src={avatarSrc || undefined} size="large">
+        <Avatar shape="square" src={avatarSm || undefined} size="large">
           <User size={20} />
         </Avatar>
         {[P.surname, P.name, P.patronymic].join(" ")}

@@ -26,6 +26,9 @@ export default async function Page({
   }
 
   const avatarSrc = JSON.parse(B.gallery) ? JSON.parse(B.gallery)?.[0] : "";
+  const avatarSm = avatarSrc?.endsWith(".webp") && avatarSrc.startsWith("/uploads/")
+    ? avatarSrc.replace(/\.webp$/, "_sm.webp")
+    : avatarSrc;
 
   return (
     <div className="max-w-260 mx-auto">
@@ -35,7 +38,7 @@ export default async function Page({
         </Space>
       </Link>
       <Title level={2} className="flex items-center gap-3">
-        <Avatar shape="square" src={avatarSrc || undefined} size="large">
+        <Avatar shape="square" src={avatarSm || undefined} size="large">
           <MapPin size={20} />
         </Avatar>
         {B.title}

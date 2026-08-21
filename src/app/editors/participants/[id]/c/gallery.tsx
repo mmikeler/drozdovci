@@ -3,15 +3,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { App, Image, Popconfirm, Upload } from "antd";
+import { App, Popconfirm, Upload } from "antd";
 import type { UploadFile, UploadProps } from "antd";
 import { deleteImage } from "@/app/actions/images/delete";
 import { uploadImage } from "@/app/actions/images/upload";
 import { PlusOutlined } from "@ant-design/icons";
 import { useSortable, isSortable } from "@dnd-kit/react/sortable";
 import { DragDropProvider } from "@dnd-kit/react";
-import { Feedback } from "@dnd-kit/dom";
-import { GripVertical, Move, Trash2 } from "lucide-react";
+import { GripVertical, Trash2 } from "lucide-react";
+import OptimizedImage from "@/components/OptimizedImage";
 
 interface GalleryProps {
   initialPhotosUrls: string[];
@@ -109,7 +109,7 @@ export default function Gallery({
               index={index}
               onRemove={handleRemove}
               originNode={
-                <Image
+                <OptimizedImage
                   src={url}
                   width={150}
                   height={150}
@@ -150,9 +150,10 @@ export default function Gallery({
       </DragDropProvider>
 
       {previewImage && (
-        <Image
+        <OptimizedImage
           alt="Предпросмотр"
-          styles={{ root: { display: "none" } }}
+          lazy={false}
+          style={{ display: "none" }}
           preview={{
             open: previewOpen,
             onOpenChange: (visible) => setPreviewOpen(visible),

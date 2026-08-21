@@ -96,7 +96,7 @@ export class Participant {
   }
 
   // Get avatar URL from photos JSON
-  get avatar(): string | undefined {
+  get avatar(): string {
     try {
       const photos = this.photos;
       if (Array.isArray(photos) && photos.length > 0) {
@@ -110,7 +110,7 @@ export class Participant {
 
   // Get grave first photo
   get gravePhoto(): string {
-    return this.graveGallery[0];
+    return this.graveGallery[0] || "/mock2.jpg";
   }
 
   // Get photos URL from photos

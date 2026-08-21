@@ -6,6 +6,7 @@ import { BurialPlace, Participant } from "@/generated/prisma/client";
 import { Image, Tag, Tooltip } from "antd";
 import Typography from "antd/es/typography";
 import RelationsList from "./relationsList";
+import OptimizedImage from "@/components/OptimizedImage";
 
 interface BurialPlaceCardProps extends BurialPlace {
   perticipants: Participant[];
@@ -24,11 +25,12 @@ export default function BurialCard({ data }: { data: BurialPlaceCardProps }) {
     >
       <div className="relative h-75 overflow-hidden">
         <Image.PreviewGroup items={photos}>
-          <Image
+          <OptimizedImage
             src={photos[0]}
             alt={title}
+            width="100%"
+            height="100%"
             styles={{
-              root: { width: "100%", height: "100%" },
               image: { objectFit: "cover" },
             }}
           />

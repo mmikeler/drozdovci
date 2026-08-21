@@ -10,6 +10,13 @@ import PostStatusTag from "@/components/postStatusTag";
 import { PostStatus } from "@/generated/prisma/enums";
 import { Participant } from "@/generated/prisma/client";
 
+const getSmVariant = (url: string) => {
+  if (!url || !url.endsWith(".webp") || !url.startsWith("/uploads/")) {
+    return url;
+  }
+  return url.replace(/\.webp$/, "_sm.webp");
+};
+
 interface Props {
   data: Participant[];
 }
@@ -72,7 +79,9 @@ export default function ParticipantsTable({ data }: Props) {
           <Avatar
             size="large"
             shape="square"
-            src={JSON.parse(record.photos)?.[0] || undefined}
+            src={
+              getSmVariant(JSON.parse(record.photos)?.[0] || "") || undefined
+            }
           >
             <User size={20} color="white" />
           </Avatar>
@@ -146,13 +155,8 @@ export default function ParticipantsTable({ data }: Props) {
             onChange={(value) =>
               setFilters((prev) => ({ ...prev, status: value ?? null }))
             }
-          >
-            {statusOptions.map((opt) => (
-              <Select.Option key={opt.value} value={opt.value}>
-                {opt.label}
-              </Select.Option>
-            ))}
-          </Select>
+            options={statusOptions.map((opt) => ({ ...opt }))}
+          />
         </div>
       ),
       render: (status: PostStatus) => <PostStatusTag status={status} />,

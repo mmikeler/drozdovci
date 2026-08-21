@@ -7,9 +7,17 @@ import { Participant as PMODEL } from "@/models/participant";
 import { QuestionOutlined } from "@ant-design/icons";
 import { Avatar, Tooltip } from "antd";
 import Link from "next/link";
+import OptimizedImage from "@/components/OptimizedImage";
 
 type RelationsListProps = {
   participants: Participant[];
+};
+
+const getSmVariant = (url: string) => {
+  if (!url || !url.endsWith(".webp") || !url.startsWith("/uploads/")) {
+    return url;
+  }
+  return url.replace(/\.webp$/, "_sm.webp");
 };
 
 export default function RelationsList(props: RelationsListProps) {
@@ -25,9 +33,11 @@ export default function RelationsList(props: RelationsListProps) {
             key={i}
             title={
               <div className="w-50 text-xs text-center">
-                <Avatar
-                  size={200}
+                <OptimizedImage
                   src={p.avatar}
+                  alt={p.fullName}
+                  width={200}
+                  height={200}
                   style={{ backgroundColor: "#ddd" }}
                 />
                 <div className="pt-1">{p.fullName}</div>
@@ -38,7 +48,7 @@ export default function RelationsList(props: RelationsListProps) {
             <Link href={p.permalink}>
               <Avatar
                 size={70}
-                src={p.gravePhoto}
+                src={getSmVariant(p.gravePhoto)}
                 style={{ backgroundColor: "#ddd" }}
                 icon={<QuestionOutlined />}
               />
