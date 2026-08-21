@@ -31,11 +31,6 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-RUN apt-get update && apt-get install -y --no-install-recommends libvips && \
-  addgroup --system --gid 1001 nodejs && \
-  adduser --system --uid 1001 -G nodejs nextjs && \
-  rm -rf /var/lib/apt/lists/*
-
 COPY --from=builder /app/public ./public
 
 RUN mkdir -p .prisma
